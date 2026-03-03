@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products, categories } from '../data/products';
+
+// Group products by category
+const productsByCategory = categories.map(cat => ({
+  ...cat,
+  items: products.filter(p => p.category === cat.id)
+}));
+---
+
+<Layout title="Products">
+  <div class="container products-page">
+    <h1 class="page-title">Our Products</h1>
+    <p class="page-intro">Browse our wide range of power solutions.</p>
+    
+    <div class="category-filters">
+      <span>Jump to:</span>
+      {categories.map(cat => (
+        <a href={`#${cat.id}`} class="filter-btn">{cat.name}</a>
+      ))}
+    </div>
+
+    {productsByCategory.map(category => (
+      <section id={category.id} class="category-section">
+        <h2 class="category-title">
+          <span class="cat-icon">{category.icon}</span>
+          {category.name}
+        </h2>
+        
+        {category.items.length > 0 ? (
+          <div class="product-grid">
+            {category.items.map(product => (
+              <ProductCard product={product} />
+            ))}
+          </div>
+        ) : (
+          <p class="no-products">No products listed in this category yet. Please contact us for details.</p>
+        )}
+      </section>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .products-page {
+    padding: 3rem 1rem;
+  }
+
+  .page-title {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+  }
+
+  .page-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .category-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    background: #eee;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.2s;
+  }
+
+  .filter-btn:hover {
+    background: #ddd;
+  }
+
+  .category-section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px; /* Offset for sticky header */
+  }
+
+  .category-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+    color: var(--color-text);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .no-products {
+    color: #888;
+    font-style: italic;
+  }
+</style>

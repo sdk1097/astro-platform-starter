@@ -1,19 +1,179 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Markdown from '../components/Markdown.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products, categories } from '../data/products';
 
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
-
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
+// Show a few featured products
+const featuredProducts = products.slice(0, 4);
 ---
 
-<Layout title="Welcome to Astro.">
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
+<Layout title="Home">
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Reliable Power Solutions for Your Home & Business</h1>
+        <p>Authorized Dealer for Exide, Luminous, Microtek, and more. Batteries, Inverters, Solar, and UPS solutions.</p>
+        <a href="/products" class="btn btn-hero">Explore Products</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">Our Products</h2>
+      <div class="categories-grid">
+        {categories.map((cat) => (
+          <a href={`/products#${cat.id}`} class="category-card">
+            <span class="cat-icon">{cat.icon}</span>
+            <span class="cat-name">{cat.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-section">
+    <div class="container">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="product-grid">
+        {featuredProducts.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>Need a Custom Solution?</h2>
+      <p>Contact us for a free consultation and quote for your power backup needs.</p>
+      <a href="#contact" class="btn btn-secondary">Contact Us Now</a>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  /* Hero */
+  .hero-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/hero-bg.jpg'); /* Need a bg image or color */
+    background-color: #2c3e50;
+    color: white;
+    padding: 6rem 0;
+    text-align: center;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .btn-hero {
+    background-color: var(--color-secondary);
+    color: #333;
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+  }
+
+  /* Categories */
+  .categories-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    color: var(--color-primary);
+    position: relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-secondary);
+    margin: 10px auto 0;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-card {
+    background: white;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  }
+
+  .cat-icon {
+    font-size: 2.5rem;
+  }
+
+  .cat-name {
+    font-weight: 600;
+  }
+
+  /* Featured */
+  .featured-section {
+    padding: 4rem 0;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  /* CTA */
+  .cta-section {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

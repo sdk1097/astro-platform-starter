@@ -1,0 +1,290 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products';
+
+const solarProducts = products.filter(p => p.category === 'solar');
+---
+
+<Layout title="Solar Enquiry">
+  <section class="solar-hero">
+    <div class="container">
+      <h1>Solar Solutions</h1>
+      <p>Reduce your electricity bills with smart solar systems and battery storage</p>
+    </div>
+  </section>
+
+  <section class="solar-banner-section">
+    <div class="container">
+      <img src="/images/solar-enquiry-banner.jpg" alt="Solar Power System - Four 250W Solar Panels, 1800VA Inverter, and 150Ah Batteries powering your home" class="solar-banner" />
+      <div class="banner-caption">
+        <p>Complete solar power system: Solar Panels + Inverter + Batteries = Reliable clean energy for your home</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="solar-products-section">
+    <div class="container">
+      <h2 class="section-title">Our Solar Products</h2>
+      <div class="product-grid">
+        {solarProducts.map(product => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="enquiry-section">
+    <div class="container">
+      <div class="enquiry-wrapper">
+        <div class="enquiry-info">
+          <h2>Why Go Solar?</h2>
+          <ul class="benefits-list">
+            <li>Reduce electricity bills by up to 90%</li>
+            <li>Government subsidies available for rooftop solar</li>
+            <li>Low maintenance with 25-year panel warranty</li>
+            <li>Eco-friendly and sustainable energy source</li>
+            <li>Increase your property value</li>
+            <li>Net metering support - sell excess power back</li>
+          </ul>
+          <div class="contact-info">
+            <h3>Speak to our Solar Expert</h3>
+            <p>Phone: <a href="tel:+919500013856">+91 95000 13856</a></p>
+            <p>Phone: <a href="tel:+919444115638">+91 94441 15638</a></p>
+            <p>Email: <a href="mailto:excelsmartups@yahoo.com">excelsmartups@yahoo.com</a></p>
+          </div>
+        </div>
+
+        <div class="enquiry-form-container">
+          <h2>Request a Call Back</h2>
+          <p class="form-subtitle">Fill in your details and our solar expert will contact you</p>
+          <form name="solar-enquiry" method="POST" data-netlify="true" class="enquiry-form">
+            <input type="hidden" name="form-name" value="solar-enquiry" />
+            <div class="form-group">
+              <label for="name">Your Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Enter your name" />
+            </div>
+            <div class="form-group">
+              <label for="mobile">Your Mobile Number *</label>
+              <input type="tel" id="mobile" name="mobile" required placeholder="Enter your mobile number" />
+            </div>
+            <div class="form-group">
+              <label for="email">Your E-Mail ID</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" />
+            </div>
+            <div class="form-group">
+              <label for="requirement">Your Requirement</label>
+              <textarea id="requirement" name="requirement" rows="4" placeholder="Describe your solar requirement (e.g., 1kW rooftop system, solar combo, etc.)"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="city">Your City</label>
+              <input type="text" id="city" name="city" placeholder="Enter your city" />
+            </div>
+            <button type="submit" class="btn btn-submit">Submit Enquiry</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .solar-hero {
+    background: linear-gradient(135deg, #1a5276 0%, #2e86c1 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .solar-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .solar-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+
+  .solar-banner-section {
+    padding: 3rem 0 1rem;
+    text-align: center;
+  }
+
+  .solar-banner {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  .banner-caption {
+    margin-top: 1rem;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .solar-products-section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    color: var(--color-primary);
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-secondary);
+    margin: 10px auto 0;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .enquiry-section {
+    padding: 3rem 0 4rem;
+    background-color: #f8f9fa;
+  }
+
+  .enquiry-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .enquiry-info h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+  }
+
+  .benefits-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+
+  .benefits-list li {
+    padding: 0.5rem 0;
+    padding-left: 1.75rem;
+    position: relative;
+    color: #444;
+  }
+
+  .benefits-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+    font-weight: bold;
+  }
+
+  .contact-info {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .contact-info h3 {
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-info p {
+    margin-bottom: 0.25rem;
+    color: #444;
+  }
+
+  .contact-info a {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .enquiry-form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .enquiry-form-container h2 {
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-subtitle {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .btn-submit:hover {
+    background-color: #004494;
+  }
+
+  @media (max-width: 768px) {
+    .solar-hero h1 {
+      font-size: 1.75rem;
+    }
+
+    .enquiry-wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
